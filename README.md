@@ -583,6 +583,12 @@ Server-Sent Events
 ```
 
 ---
+## 👨‍💻 Author
+Shivam Jaiswal
+
+B.Tech — Computer Science & Engineering
+
+---
 
 ## 📄 License
 
