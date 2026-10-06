@@ -159,7 +159,7 @@ export function LandingPage({ onStartChat, onHowItWorks }: LandingPageProps) {
       {/* Footer */}
       <footer className="border-t border-blue-100 bg-slate-50 px-6 py-8 text-center text-slate-400 text-xs">
         <p className="mb-1">⚠️ LexiBot provides legal information, not legal advice. Always consult a qualified attorney for your specific situation.</p>
-        <p>© 2024 LexiBot. All rights reserved.</p>
+        <p>© 2026 LexiBot. All rights reserved.</p>
       </footer>
     </div>
   );
