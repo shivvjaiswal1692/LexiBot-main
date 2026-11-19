@@ -49,12 +49,26 @@ export function useChat() {
 
     try {
       const token = localStorage.getItem('lexibot_token');
-      const response = await fetch('/api/chat', {
+
+      const baseURL = api.defaults.baseURL || '/api';
+      const chatURL = `${baseURL.replace(/\/+$/, '')}/chat`;
+
+      console.log('API baseURL:', baseURL);
+      console.log('Final Chat URL:', chatURL);
+
+      const response = await fetch(chatURL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ message: content, ...(currentSessionId && { sessionId: currentSessionId }) }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          message: content,
+          ...(currentSessionId && { sessionId: currentSessionId }),
+        }),
         signal: abortControllerRef.current.signal,
       });
+
 
       if (!response.ok) {
         const data = await response.json();
