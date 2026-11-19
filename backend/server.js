@@ -31,12 +31,24 @@ const chatLimiter = rateLimit({
 });
 
 // ─── Middleware ───────────────────────────────────────────────────────────────
+
+const allowedOrigins = [
+  'https://lexibot-frontend-lemon.vercel.app',
+  'http://localhost:5173',
+];
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error('Not allowed by CORS'));
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+
 
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
@@ -76,7 +88,9 @@ mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log('✅ MongoDB connected');
-    app.listen(PORT, () => console.log(`🚀 LexiBot API running on http://localhost:${PORT}`));
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`🚀 LexiBot API running on port ${PORT}`);
+    });
   })
   .catch((err) => {
     console.error('❌ MongoDB connection failed:', err.message);
