@@ -34,6 +34,7 @@ const chatLimiter = rateLimit({
 
 const allowedOrigins = [
   'https://lexibot-frontend-lemon.vercel.app',
+  'https://lexibot-frontend-bdeumh1pv-shivam-jaiswals-projects-e3660c77.vercel.app',
   'http://localhost:5173',
 ];
 
